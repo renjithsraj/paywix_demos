@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'checkout.apps.CheckoutConfig'
+    'checkout.apps.CheckoutConfig',
+
+    #Paywix config
+    'paywix.apps.PaywixConfig'
+
+
 ]
 
 MIDDLEWARE = [
@@ -120,3 +125,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# PAY WIX CONFIGS
+
+# PAYU Mandatory Config details
+PAYU_CONFIG = {
+    "merchant_key": "mPXEdCTk",
+    "merchant_salt": "eWC5pLKLDY",
+    "mode": "TEST",
+    "success_url": "http://127.0.0.1:8000/payu/success",
+    "failure_url": "http://127.0.0.1:8000/payu/failure"
+}
