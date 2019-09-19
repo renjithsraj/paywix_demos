@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'checkout.apps.CheckoutConfig',
 
-    #Paywix config
+    # Paywix config
     'paywix.apps.PaywixConfig'
 
 
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'paywix_demo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,8 +131,8 @@ STATIC_URL = '/static/'
 
 # PAYU Mandatory Config details
 PAYU_CONFIG = {
-    "merchant_key": "mPXEdCTk",
-    "merchant_salt": "eWC5pLKLDY",
+    "merchant_key": "*********",
+    "merchant_salt": "********",
     "mode": "TEST",
     "success_url": "http://127.0.0.1:8000/payu/success",
     "failure_url": "http://127.0.0.1:8000/payu/failure"
