@@ -131,9 +131,17 @@ STATIC_URL = '/static/'
 
 # PAYU Mandatory Config details
 PAYU_CONFIG = {
-    "merchant_key": "*********",
-    "merchant_salt": "********",
+    "merchant_key": "mPXEdCTk",
+    "merchant_salt": "eWC5pLKLDY",
     "mode": "TEST",
     "success_url": "http://127.0.0.1:8000/payu/success",
     "failure_url": "http://127.0.0.1:8000/payu/failure"
+}
+
+PAYTM_CONFIG = {
+    "merchant_key": "frmTjdL@1fyhBzAr",
+    "merchant_id": "kGuPMZ17441871743529",
+    "callback_url": "http://127.0.0.1:8000/paytm/response",
+    "mode": "TEST",
+    "website": "WEBSTAGING",
 }
