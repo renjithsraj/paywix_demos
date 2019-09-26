@@ -7,6 +7,8 @@ from paywix.paytm import PayTm
 payu = PAYU()
 paytm = PayTm()
 
+import uuid
+
 # Home page
 def home(request):
     return render(request, 'home.html', {})
@@ -58,4 +60,12 @@ def paytm_response(request):
     data = dict(zip(request.POST.keys(), request.POST.values()))
     response = paytm.verify_hash(data)
     return JsonResponse(response)
+
+
+def stripe_checkout(request):
+    stripe_data = {
+        "STRIPE_TOKEN": "pk_test_FIqmXI5IJDXr7Mt9OjsJ2Wda",
+        "amount": 10, "order_id": str(uuid.uuid1()),
+        "currency": "usd", "description": "TEST Prodcut"}
+    return render(request, 'stripe.html', {'data': stripe_data})
 
