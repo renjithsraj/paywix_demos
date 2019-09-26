@@ -4,8 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 from paywix.payu import PAYU
 from paywix.paytm import PayTm
+from paywix.cashfree import  Cashfree
 payu = PAYU()
 paytm = PayTm()
+cashfree = Cashfree()
 
 import uuid
 
@@ -21,7 +23,6 @@ def payu_checkout(request):
         data = dict(zip(request.POST.keys(), request.POST.values()))
         data['txnid'] = payu.generate_txnid()
         payu_data = payu.initiate_transaction(data)
-        print ("payu data us", payu_data)
         return render(request, 'payu_checkout.html', {"posted": payu_data})
     return render(request, 'payu.html', {})
 
@@ -36,7 +37,6 @@ def paytm_checkout(request):
             'CUST_ID': "renjithsraj@live.com",
         }
         param_dict = paytm.initiate_transaction(data_dict)
-        print ("before request", param_dict)
         return render(request, "paytm_checkout.html", {'paytmdict': param_dict})
 
 # Payu success return page
@@ -69,3 +69,21 @@ def stripe_checkout(request):
         "currency": "usd", "description": "TEST Prodcut"}
     return render(request, 'stripe.html', {'data': stripe_data})
 
+def cashfree_checkout(request):
+    data = {}
+    data.update({'order_id': cashfree.generate_txnid()})
+
+    if request.method == 'POST':
+        # Make sure that the details are stored in the db
+        data = dict(zip(request.POST.keys(), request.POST.values()))
+        data.pop('csrfmiddlewaretoken')
+        pgdata = cashfree.initiate_transaction(data)
+        return render(request, 'cashfree_checkout.html', {'postData': pgdata})
+    else:
+        return render(request, 'cashfree.html', {'posted': data})
+
+@csrf_exempt
+def cashfree_response_return(request):
+    data = dict(zip(request.POST.keys(), request.POST.values()))
+    response = cashfree.verify_hash(data)
+    return JsonResponse(response)
