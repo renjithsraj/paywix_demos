@@ -40,9 +40,6 @@ INSTALLED_APPS = [
 
     'checkout.apps.CheckoutConfig',
 
-    # Paywix config
-    'paywix.apps.PaywixConfig',
-
 
 ]
 
@@ -132,9 +129,9 @@ STATIC_URL = '/static/'
 
 # PAYU Mandatory Config details
 PAYU_CONFIG = {
-    "merchant_key": "mPXEdCTk",
-    "merchant_salt": "eWC5pLKLDY",
-    "mode": "TEST",
+    "merchant_key": "3o6jgxhp",
+    "merchant_salt": "67bAgZX1B3",
+    "mode": "test",
     "success_url": "http://127.0.0.1:8000/payu/success",
     "failure_url": "http://127.0.0.1:8000/payu/failure"
 }
