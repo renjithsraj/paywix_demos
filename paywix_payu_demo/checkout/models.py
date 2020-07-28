@@ -3,23 +3,20 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 # Create your models here.
 
-SERVER_STATUS = (
-    ("SIN", "Server Side Initiated")
-)
-
 TRANSACTION_STATUS = (
     ('NS', 'Not Started'),
     ('IN', 'Initiated'),
     ('MP', 'Money With PayUMoney'),
-    ('UD', 'Under Dispute')
+    ('UD', 'Under Dispute'),
     ('RF', 'Refunded'),
     ('PR', 'Partially Refunded'),
     ('BD', 'Bounced'),
     ('FD', 'Failed'),
     ('SP', 'Settlement in Process'),
-    ('CP', 'Completed')
+    ('CP', 'Completed'),
+    ("SIN", "Server Side Initiated")
 )
-TRANSACTION_STATUS = TRANSACTION_STATUS + SERVER_STATUS
+TRANSACTION_STATUS = TRANSACTION_STATUS
 DETAILS = {
     "NS": "The transaction has not been started yet.",
     "IN": "The transaction has been started but not completed.",
@@ -44,11 +41,11 @@ class TimeStampModel(models.Model):
 
 
 class Transaction(TimeStampModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
                              on_delete=models.SET_NULL)
     txn_id = models.CharField(_("transaction id"), max_length=120, unique=True)
     txn_status = models.CharField(
-        _("trabsaction status"), choices=(TRANSACTION_STATUS), max_length=3, default='SIN')
+        _("trabsaction status"), choices=TRANSACTION_STATUS, max_length=3, default='SIN')
     amount = models.DecimalField(_('amount'), max_digits=19, decimal_places=4)
     request_data = models.TextField(
         _('Requested Data'), null=True, blank=True)
@@ -59,9 +56,9 @@ class Transaction(TimeStampModel):
         _('Response Data'), null=True, blank=True)
     reponse_hash = models.TextField(
         _('Response Hash'), null=True, blank=True)
-    payumoney_id = models.CharField(_('payuMoneyId'), editable=False)
+    payumoney_id = models.CharField(_('payuMoneyId'), editable=False, max_length=120)
     transaction_mode = models.CharField(
         _('Mode'), max_length=2, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.txnid} : {self.created_date} : {self.txn_status}"
+        return f"{self.txn_id} : {self.created_date} : {self.txn_status}"

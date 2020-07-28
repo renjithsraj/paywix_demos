@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'checkout.apps.CheckoutConfig',
+    'paywix',
 
 
 ]
@@ -136,18 +137,3 @@ PAYU_CONFIG = {
     "failure_url": "http://127.0.0.1:8000/payu/failure"
 }
 
-PAYTM_CONFIG = {
-    "merchant_key": "frmTjdL@1fyhBzAr",
-    "merchant_id": "kGuPMZ17441871743529",
-    "callback_url": "http://127.0.0.1:8000/paytm/response",
-    "mode": "TEST",
-    "website": "WEBSTAGING",
-}
-
-CASHFREE_CONFIG = {
-    "app_id": "7048ed40f7ef7b42dffeac5407",
-    "secret_key": "5a7dea455de96e58ce388fd87918028bed01fba6",
-    "return_url": "http://127.0.0.1:8000/cashfree/response",
-    "currency": "INR",
-    "mode": "TEST"
-}
