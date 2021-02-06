@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %} Home | Payuwix Demo {% endblock title %}
+
+
+{% block maincontent %}
+
+<hr>
+<div class="row ">
+    <div class="col-md-12 ">
+        <ol>
+            
+            <li class="list-item">
+                <a href="{% url 'payu' %}">Payu Payment Gateway Integration</a>
+            </li>
+
+        </ol>
+    </div>
+</div>
+
+{% endblock maincontent %}
